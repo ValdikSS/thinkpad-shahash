@@ -1,7 +1,14 @@
 # thinkpad-shahash
 This is a small utility which checks and recomputes sha1 hashes used to validate Lenovo ThinkPad X220/T420 (and probably other Sandy Bridge ThinkPads) firmware integrity. You can hear 5 beeps twice if the firmware fails validation and you have TPM (security chip) turned on, which is pretty common for modified firmwares.
 
-## How to get rid of 5 beeps
+This utility is now fully automatic, it can re-hash TCPA blocks, recompute RSA signatures of said blocks and replace Lenovo public key with yours.
+
+## How to get rid of 5 beeps automatically
+run  
+`gethashes.py --output recomputed_fw.FL1 modified_fw.FL1`  
+where `modified_fw.FL1` is a file you modified and need to recompute hashes for and `recomputed_fw.FL1` is an output file.
+
+## How to get rid of 5 beeps manually
 You need to recompute SHA1 hashes of modified firmware files in UEFI Volume 7A9354D9-0468-444A-81CE-0BF617D890DF, change RSA key and change SHA1 hashes, RSA public key and RSA signature to yours.
 
 1. Change all the files you want in UEFI Volume 7A9354D9-0468-444A-81CE-0BF617D890DF.
