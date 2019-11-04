@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import os
 import binascii
 import hashlib
 import struct
@@ -52,7 +53,7 @@ def save_data(name, data):
         f.write(data)
 
 def sign_data(input_data):
-    out = Popen([OPENSSL,"rsautl","-inkey",PRIVKEY_FILE,"-sign","-raw"],
+    out = Popen([OPENSSL,"rsautl","-inkey",os.path.join(os.path.dirname(os.path.realpath(__file__)), PRIVKEY_FILE),"-sign","-raw"],
                 stdout=PIPE, stdin=PIPE)
     out = out.communicate(input=input_data)[0]
     return out
@@ -99,7 +100,7 @@ if __name__ == "__main__":
     data = ifile
 
     if args.output:
-        fullfile = replace_pubkey(fullfile, open(PUBKEY_FILE, "rb").read())
+        fullfile = replace_pubkey(fullfile, open(os.path.join(os.path.dirname(os.path.realpath(__file__)), PUBKEY_FILE), "rb").read())
 
     while find_tcpa_block(data):
         tcpa_block = find_tcpa_block(data)
