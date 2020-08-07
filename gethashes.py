@@ -94,7 +94,8 @@ if __name__ == "__main__":
     ifile = open(args.fw_file, "rb")
     fullfile = ifile.read()
     # Skip 0x520000 zero bytes
-    assert(ifile.seek(0x520000) == 0x520000)
+    ifile.seek(0x520000)
+    assert(ifile.tell() == 0x520000)
     ifile = ifile.read()
 
     data = ifile
